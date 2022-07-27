@@ -1,6 +1,26 @@
 ﻿<EditForm Model="this" OnValidSubmit="Sign">
     <AsyncFieldset>
         <div class="mb-3">
+            <div>
+                <label class="form-label">Modo de firmado</label>
+            </div>
+            <InputRadioGroup Name="mode" @bind-Value="Mode">
+                <div class="form-check form-check-inline">
+                    <InputRadio class="form-check-input" Name="mode" id="sign" Value="@KvSignMode.Hash" />
+                    <label class="form-check-label" for="sign">
+                        Datos
+                    </label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <InputRadio class="form-check-input" Name="mode" id="verify" Value="@KvSignMode.Data" />
+                    <label class="form-check-label" for="verify">
+                        Hash
+                    </label>
+                </div>
+            </InputRadioGroup>
+        </div>
+        <div class="mb-3">
             <label class="form-label">Algoritmo</label>
             <AsyncSelect Items="Algorithms" class="form-select" @bind-Value="Algorithm" OperationsFilter="@nameof(RefreshAlgorithms)" />
         </div>

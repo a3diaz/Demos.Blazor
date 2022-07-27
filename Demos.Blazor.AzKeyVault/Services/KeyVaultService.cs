@@ -1,6 +1,7 @@
 ﻿using Azure.Identity;
 using Azure.Security.KeyVault.Keys;
 using Azure.Security.KeyVault.Keys.Cryptography;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Demos.Blazor.AzKeyVault.Services
@@ -28,6 +29,18 @@ namespace Demos.Blazor.AzKeyVault.Services
             var result = await crypto.SignDataAsync(algorithm, bytes);
             var base64Signature = Convert.ToBase64String(result.Signature);
 
+            return base64Signature;
+        }
+
+        public async Task<string> Sign(string key, string data, string algorithm)
+        {
+            SHA256 hasher = SHA256.Create();
+
+            var crypto = KeyClient.GetCryptographyClient(key);
+            var bytes = Encoding.UTF8.GetBytes(data);
+            var hash = hasher.ComputeHash(bytes);
+            var result = await crypto.SignAsync(algorithm, hash);
+            var base64Signature = Convert.ToBase64String(result.Signature);
             return base64Signature;
         }
 

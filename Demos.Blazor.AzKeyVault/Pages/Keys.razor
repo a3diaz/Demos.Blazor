@@ -12,6 +12,10 @@
             <div class="mb-3">
                 @if (!string.IsNullOrEmpty(Key))
                 {
+                    <div>
+                        <label class="form-label">Operación</label>
+                    </div>
+
                     <InputRadioGroup Name="operation" @bind-Value="Operation">
 
                         <div class="form-check form-check-inline">
