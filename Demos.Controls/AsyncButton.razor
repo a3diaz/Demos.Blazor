@@ -1,0 +1,12 @@
+﻿@inherits AsyncControl
+
+<button @attributes="InputAttributes"  disabled="@IsLoading">
+    @if (IsLoading)
+    {
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> @LoadingText
+    }
+    else
+    {
+        @Text
+    }
+</button>

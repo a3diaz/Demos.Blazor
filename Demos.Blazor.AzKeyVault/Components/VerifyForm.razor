@@ -1,0 +1,35 @@
+﻿<EditForm Model="this" OnValidSubmit="Verify">
+    <AsyncFieldset>
+        <div class="mb-3">
+            <label class="form-label">Algoritmo</label>
+            <AsyncSelect Items="Algorithms" class="form-select" @bind-Value="Algorithm" OperationsFilter="@nameof(RefreshAlgorithms)" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Datos a verificar</label>
+            <textarea class="form-control" placeholder="Introduce los datos a verificar" @bind="Data" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Firma</label>
+            <textarea class="form-control" placeholder="Introduce la firma" @bind="Signature" required></textarea>
+        </div>
+        <div class="mb-3">
+            @if (IsValid.HasValue)
+                @if (IsValid.Value)
+                {
+                    <div class="alert alert-success" role="alert">
+                        Firma valida
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-danger" role="alert">
+                        Firma no valida
+                    </div>
+                }
+        </div>
+
+        <div class="mb-3">
+            <AsyncButton class="btn btn-primary" type="submit" Text="Verificar" LoadingText="Verificando..." OperationsFilter="@nameof(Verify)" />
+        </div>
+    </AsyncFieldset>
+</EditForm>

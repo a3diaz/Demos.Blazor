@@ -1,0 +1,17 @@
+﻿@typeparam TItem
+@inherits AsyncControl
+
+<select @onchange="OnSelectionChanged" @attributes="InputAttributes" disabled="@IsLoading">
+    @if (IsLoading)
+    {
+        <option disabled selected value>@(LoadingPlaceholder ?? "Cargando elementos...")</option>
+    }
+    else
+    {
+        <option disabled selected value>@(Placeholder ?? "Seleccionar elemento")</option>
+        @foreach (var item in Items)
+        {
+            <option value="@(ValueSelector(@item))">@(NameSelector(item))</option>
+        }
+    }
+</select>

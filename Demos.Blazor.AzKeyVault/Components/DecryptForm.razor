@@ -1,0 +1,20 @@
+﻿<EditForm Model="this" OnValidSubmit="Decrypt">
+    <AsyncFieldset>
+        <div class="mb-3">
+            <label class="form-label">Algoritmo</label>
+            <AsyncSelect Items="Algorithms" class="form-control" @bind-Value="Algorithm" OperationsFilter="@nameof(RefreshAlgorithms)" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Datos cifrados</label>
+            <textarea class="form-control" placeholder="Introduce el valor a descifrar" @bind="Cipher" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Datos en plano</label>
+            <textarea class="form-control" @bind="Plain" readonly></textarea>
+        </div>
+
+        <div class="mb-3">
+            <AsyncButton class="btn btn-primary" type="submit" Text="Descifrar" LoadingText="Descifrando..." OperationsFilter="@nameof(Decrypt)" />
+        </div>
+    </AsyncFieldset>
+</EditForm>

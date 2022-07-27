@@ -1,0 +1,69 @@
+﻿@page "/keys"
+
+<PageTitle>Operaciones con llaves - Azure KeyVault</PageTitle>
+
+<div>
+    <EditForm Model="this">
+        <AsyncFieldset>
+            <div class="mb-3">
+                <label class="form-label">Llave</label>
+                <AsyncSelect class="form-select" @bind-Value="Key" Items="KeyList" OperationsFilter="@nameof(RefreshKeys)" required />
+            </div>
+            <div class="mb-3">
+                @if (!string.IsNullOrEmpty(Key))
+                {
+                    <InputRadioGroup Name="operation" @bind-Value="Operation">
+
+                        <div class="form-check form-check-inline">
+                            <InputRadio class="form-check-input" Name="operation" id="sign" Value="@KvOperation.Sign" />
+                            <label class="form-check-label" for="sign">
+                                Firmar
+                            </label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <InputRadio class="form-check-input" Name="operation" id="verify" Value="@KvOperation.Verify" />
+                            <label class="form-check-label" for="verify">
+                                Verificar
+                            </label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <InputRadio class="form-check-input" Name="operation" id="verify" Value="@KvOperation.Encrypt" />
+                            <label class="form-check-label" for="encrypt">
+                                Cifrar
+                            </label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <InputRadio class="form-check-input" Name="operation" id="verify" Value="@KvOperation.Decrypt" />
+                            <label class="form-check-label" for="decrypt">
+                                Descifrar
+                            </label>
+                        </div>
+
+                    </InputRadioGroup>
+                }
+            </div>
+        </AsyncFieldset>
+    </EditForm>
+
+    <div>
+
+        @switch (Operation)
+        {
+            case KvOperation.Sign:
+                <SignForm Key="@Key" />
+                break;
+            case KvOperation.Verify:
+                <VerifyForm Key="@Key" />
+                break;
+            case KvOperation.Encrypt:
+                <EncryptForm Key="@Key" />
+                break;
+            case KvOperation.Decrypt:
+                <DecryptForm Key="@Key" />
+                break;
+        }
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿<EditForm Model="this" OnValidSubmit="Sign">
+    <AsyncFieldset>
+        <div class="mb-3">
+            <label class="form-label">Algoritmo</label>
+            <AsyncSelect Items="Algorithms" class="form-select" @bind-Value="Algorithm" OperationsFilter="@nameof(RefreshAlgorithms)" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Datos a firmar</label>
+            <textarea class="form-control" placeholder="Introduce el valor a firmar" @bind="Data" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Firma</label>
+            <textarea class="form-control" @bind="Signature" readonly></textarea>
+        </div>
+
+        <div class="mb-3">
+            <AsyncButton class="btn btn-primary" type="submit" Text="Firmar" LoadingText="Firmando..." OperationsFilter="@nameof(Sign)" />
+        </div>
+    </AsyncFieldset>
+</EditForm>
